@@ -63,3 +63,5 @@
 @media(max-width:850px){.topbar{height:auto;min-height:64px;flex-wrap:wrap;gap:10px;padding-top:12px;padding-bottom:12px}.top-actions{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.top-actions .upload,.top-actions button{padding:8px 5px;min-width:0;font-size:11px;white-space:nowrap}}
 .export-actions{display:flex;align-items:center;gap:8px}.export-actions select{width:155px;margin:0;padding:9px 10px;font-size:12px;height:41px}.export-actions button{white-space:nowrap}
 @media(max-width:850px){.top-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.export-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:7px}.export-actions select{width:100%;height:35px;padding:7px 9px;font-size:11px}.export-actions button{height:35px}}
+
+.history-nav{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}.history-nav button{font-size:10px;padding:5px 7px;white-space:nowrap}.history-nav button:disabled{opacity:.35;cursor:default}.history-area{min-height:102px}.history-heading{gap:6px}#history{padding:3px 0}
