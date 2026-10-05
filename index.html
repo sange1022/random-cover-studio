@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>封面工作室</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/src/style.css"></head>
+<body>
+<header class="topbar">
+ <div class="identity"><h1>封面工作室</h1><span>COVER STUDIO</span></div>
+ <div class="top-actions"><label class="upload button" for="background-upload">上传背景图片</label><input type="file" id="background-upload" accept="image/*" hidden><label class="upload button" for="upload">替换模板照片</label><input type="file" id="upload" accept="image/*" hidden><div class="export-actions"><select id="export-quality" aria-label="导出尺寸" title="2K / 4K 按长边计算；原图按图片长边像素并保持封面比例；最高至少 8K"><option value="2k">2K · 长边 2048</option><option value="4k">4K · 长边 4096</option><option value="original">原图 · 原图长边</option><option value="highest" selected>最高 · 8K 及以上</option></select><button id="export" class="primary">导出 PNG</button></div></div>
+</header>
+<main class="workspace">
+ <aside class="editor rail" aria-label="文字编辑面板">
+  <div class="panel-heading"><span class="panel-number">01</span><h2>文字编辑</h2></div>
+  
+  <section class="primary-fields">
+   <label for="title">主标题</label><textarea id="title" maxlength="160" rows="3"></textarea>
+   <label for="subtitle">副标题</label><textarea id="subtitle" maxlength="240" rows="3"></textarea>
+   <label for="kicker">角标 / 落款</label><textarea id="kicker" maxlength="160" rows="2"></textarea>
+   <label for="brand">品牌文字</label><textarea id="brand" maxlength="240" rows="2"></textarea>
+  </section>
+  <section id="generative-controls" hidden><div class="generative-heading"><span>随机构图 · 测试版</span><button id="regenerate">重新构图 ↗</button></div><label for="free-design">字体与配色组合</label><select id="free-design"></select><label class="random-option"><input id="free-shuffle-design" type="checkbox"> 重新构图时也换字体配色</label><label for="free-route">构图路线</label><select id="free-route"></select><label for="free-paragraphs">分段内容</label><textarea id="free-paragraphs" maxlength="1800" rows="8" placeholder="每段之间空一行；段内回车保留换行。"></textarea><p class="field-hint">空一行分段，最多 8 个文字块。名称使用上方名称字段。</p><div class="range-label"><label for="free-freedom">变化幅度</label><output id="free-freedom-value">65</output></div><input type="range" id="free-freedom" min="0" max="100" value="65"><label class="random-option"><input id="free-rules" type="checkbox" checked> 分段细线</label><label class="random-option"><input id="free-photo" type="checkbox"> 加入照片窗口</label><label class="random-option"><input id="free-overlay" type="checkbox"> 允许双色文字叠印</label><p id="free-structure" class="field-hint"></p></section>
+  <details class="settings" open><summary>细节文字与字体</summary>
+   <div id="selected-text-fields">
+    <label for="eyebrow">顶部小标题</label><textarea id="eyebrow" maxlength="240" rows="2"></textarea>
+    <label for="vertical">中央竖排文字</label><textarea id="vertical" maxlength="240" rows="2"></textarea>
+    <label for="left">左侧文字</label><textarea id="left" maxlength="240" rows="2"></textarea>
+    <label for="right">右侧文字</label><textarea id="right" maxlength="240" rows="2"></textarea>
+    <label for="metaLeft">图片左下信息</label><textarea id="metaLeft" maxlength="240" rows="2"></textarea>
+    <label for="metaRight">图片右下信息</label><textarea id="metaRight" maxlength="240" rows="2"></textarea>
+    <label for="body">说明 / 左侧小字</label><textarea id="body" maxlength="240" rows="3"></textarea>
+    <label for="fineprint">右侧小字</label><textarea id="fineprint" maxlength="240" rows="2"></textarea>
+   </div>
+   <label for="font">标题字体</label><select id="font"><option value="auto">跟随版式</option><option value="editorial">经典衬线 · Bodoni / 宋体</option><option value="light">纤细黑体 · Helvetica Light</option><option value="bold">粗黑体 · Helvetica / 苹方</option><option value="condensed">窄体 · Arial Narrow</option><option value="script">英文手写 · Snell Roundhand</option><option value="rounded">圆体 · 圆体 / Arial Rounded</option><option value="mono">等宽体 · Menlo</option></select>
+   <div class="range-label"><label for="font-size">字号</label><output id="font-value">110</output></div><input type="range" id="font-size" min="36" max="180" value="110">
+  </details>
+ </aside>
+ <section class="studio" aria-label="封面工作台">
+  <div class="canvas-toolbar"><h2>实时预览</h2><div class="preview-actions"><button id="enlarge-preview" class="text-button">放大查看</button><div class="ratio-group" aria-label="画布比例"><button data-ratio="original">原作</button><button data-ratio="3:4">3:4</button><button data-ratio="1:1">1:1</button><button data-ratio="9:16">9:16</button></div></div></div>
+  <div class="stage"><canvas id="preview" role="button" tabindex="0" aria-label="放大当前封面"></canvas></div>
+  <div class="stage-footer"><span id="layout-name"></span><span id="canvas-size"></span></div>
+  <section class="history-area" aria-label="历史版本"><div class="history-heading"><button id="save-version">保存版本</button><span>历史版本 <small id="count">0</small></span></div><div id="history"><p class="history-empty">保存当前封面，随时回来继续修改。</p></div></section>
+ </section>
+ <aside class="inspector rail" aria-label="样式选择面板">
+  <div class="panel-heading"><span class="panel-number">03</span><h2>样式选择</h2></div>
+   <button id="random-style" class="random-button"><span class="random-copy"><strong>随机换一款</strong><small>从全部样式中探索</small></span><span class="random-arrow">↗</span></button><label class="random-option"><input id="random-with-color" type="checkbox" checked> 同时随机配色</label>
+  <section class="style-section">
+
+   <label for="style-group">按构图选择</label><select id="style-group" aria-label="构图分类"></select>
+   <details class="catalog-filter"><summary>更多筛选</summary><label for="style-source">模板来源</label><select id="style-source"></select><input id="style-search" type="search" placeholder="搜索模板名称" aria-label="搜索样式"></details>
+   <div class="catalog-tools"><span id="style-count"></span><button id="overview" class="text-button">全部预览</button></div>
+   <p class="style-hint">点击小图，在中间查看排版</p><div id="layout-list" class="modes"></div>
+   <button id="enter-generative" class="generative-entry">自动生成新构图 <span>＋</span></button><div id="generative-actions" hidden><button id="regenerate-main">重新构图 ↗</button><p>保留输入文案，生成另一种构图</p></div><div class="reference-actions"><button id="reference">原图对照</button><button id="reference-copy">载入参考文字</button></div>
+  </section>
+  <details class="settings"><summary>配色 <span id="palette-count"></span></summary><label for="palette-group">色系</label><select id="palette-group"></select><div class="palette-tools"><span id="palette-name">参考原配色</span><button id="random-palette" class="text-button">随机配色</button></div><div id="palettes" class="swatches"></div><div class="color-fields"><label>纸面底色 <input id="bg" type="color" value="#f5f0e0"></label><label>文字 <input id="fg" type="color" value="#080a07"></label><label>强调色 <input id="accent" type="color" value="#f5f2e9"></label></div></details>
+  <details class="settings"><summary>自定义背景图</summary><p id="background-name" class="image-name">未添加背景图</p><button id="remove-background" class="text-button" disabled>移除背景图</button><div class="range-label"><label for="background-opacity">背景不透明度</label><output id="background-opacity-value">100%</output></div><input type="range" id="background-opacity" min="0" max="100" value="100"><p class="field-hint">0% 隐藏，100% 完全显示；底色来自当前配色。</p></details><details class="settings"><summary>背景裁切</summary><p id="image-name" class="image-name"></p><div class="range-label"><label for="zoom">缩放</label><output id="zoom-value">100%</output></div><input type="range" id="zoom" min="100" max="220" value="100"><div class="range-label"><label for="pan">横向位置</label><output id="pan-value">50%</output></div><input type="range" id="pan" min="0" max="100" value="50"></details>
+  <details class="settings about-template"><summary>关于此模板</summary><p id="style-note" class="style-note"></p></details>
+ </aside>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="style-gallery"><div class="gallery-top"><div><h2>样式总览</h2><p>选择模板，修改文字并上传背景即可生成封面。</p></div><button id="close-gallery" aria-label="关闭样式总览">关闭</button></div><div id="gallery-grid"></div></dialog>
+<dialog id="reference-dialog"><div class="gallery-top"><div><h2>参考原图与当前封面</h2><p id="reference-caption"></p></div><button id="close-reference" aria-label="关闭原图对照">关闭</button></div><div class="comparison"><div id="reference-frames"></div><div class="current-result"><span>当前封面</span><canvas id="comparison-canvas"></canvas></div></div></dialog>
+<dialog id="cover-dialog"><div class="cover-dialog-top"><h2 id="large-cover-title">封面大图</h2><button id="close-cover" aria-label="关闭封面大图">关闭</button></div><div class="cover-large-stage"><canvas id="large-cover"></canvas></div></dialog>
+<script type="module" src="/src/app.js"></script>
+</body></html>

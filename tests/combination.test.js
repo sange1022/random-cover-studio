@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {composeCard} from '../src/combination.js';
+test('combination draw independently samples image and text geometry from observed frames',()=>{const prev={title:'保留标题',subtitle:'副标题',layout:85,layers:{image:true,text:true},serial:1};const seq=[.05,.95,.5,.2,.4,.7,.8,.9];let i=0;const next=composeCard(prev,()=>seq[i++%seq.length]);assert.ok(next.combination);assert.notEqual(next.combination.image,next.combination.text);assert.equal(next.title,prev.title);assert.equal(next.layers.image,true);assert.equal(next.serial,2);});
+test('locked image and colors survive a combination draw',()=>{const prev={layout:85,title:'自己的内容',bg:'#112233',fg:'#ffffff',accent:'#889900',combination:{image:'third-photo',text:'right-photo'},locks:{image:true,color:true},layers:{image:false}};const next=composeCard(prev,()=>.9);assert.equal(next.combination.image,'third-photo');assert.equal(next.bg,prev.bg);assert.equal(next.fg,prev.fg);assert.equal(next.layers.image,false);});
+test('locking a captured frame before the first draw retains its photo geometry',()=>{const next=composeCard({referenceKey:'third-photo',title:'Title',locks:{image:true}},()=>.01);assert.equal(next.combination.image,'third-photo');});
