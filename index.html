@@ -17,7 +17,7 @@
    <label for="brand">品牌文字</label><textarea id="brand" maxlength="240" rows="2"></textarea>
   </section>
   <section id="generative-controls" hidden><div class="generative-heading"><span>随机构图 · 测试版</span><button id="regenerate">重新构图 ↗</button></div><label for="free-design">字体与配色组合</label><select id="free-design"></select><label class="random-option"><input id="free-shuffle-design" type="checkbox"> 重新构图时也换字体配色</label><label for="free-route">构图路线</label><select id="free-route"></select><label for="free-paragraphs">分段内容</label><textarea id="free-paragraphs" maxlength="1800" rows="8" placeholder="每段之间空一行；段内回车保留换行。"></textarea><p class="field-hint">空一行分段，最多 8 个文字块。名称使用上方名称字段。</p><div class="range-label"><label for="free-freedom">变化幅度</label><output id="free-freedom-value">65</output></div><input type="range" id="free-freedom" min="0" max="100" value="65"><label class="random-option"><input id="free-rules" type="checkbox" checked> 分段细线</label><label class="random-option"><input id="free-photo" type="checkbox"> 加入照片窗口</label><label class="random-option"><input id="free-overlay" type="checkbox"> 允许双色文字叠印</label><p id="free-structure" class="field-hint"></p></section>
-  <details class="settings" open><summary>细节文字与字体</summary>
+  <details class="settings"><summary>细节文字与字体</summary>
    <div id="selected-text-fields">
     <label for="eyebrow">顶部小标题</label><textarea id="eyebrow" maxlength="240" rows="2"></textarea>
     <label for="vertical">中央竖排文字</label><textarea id="vertical" maxlength="240" rows="2"></textarea>
@@ -40,7 +40,12 @@
  </section>
  <aside class="inspector rail" aria-label="样式选择面板">
   <div class="panel-heading"><span class="panel-number">03</span><h2>样式选择</h2></div>
-   <button id="random-style" class="random-button"><span class="random-copy"><strong>随机换一款</strong><small>从全部样式中探索</small></span><span class="random-arrow">↗</span></button><label class="random-option"><input id="random-with-color" type="checkbox" checked> 同时随机配色</label>
+   <section class="generation-panel" aria-label="快速生成">
+   <button id="random-style" class="random-button"><span class="random-copy"><strong>随机换一款</strong><small id="random-scope">在当前分类中探索</small></span><span class="random-arrow">↗</span></button>
+   <button id="generate-six" class="batch-button">一次生成 6 张 <span>▦</span></button>
+   <div class="generation-secondary"><button id="recolor-current">保留排版 · 换配色</button><button id="random-all">探索全部</button></div>
+   <label class="random-option"><input id="random-with-color" type="checkbox" checked> 换排版时也换配色</label>
+  </section>
   <section class="style-section">
 
    <label for="style-group">按构图选择</label><select id="style-group" aria-label="构图分类"></select>
@@ -55,6 +60,7 @@
  </aside>
 </main>
 <div id="toast" role="status" aria-live="polite"></div>
+<dialog id="candidate-dialog" aria-labelledby="candidate-title"><div class="gallery-top"><div><h2 id="candidate-title">挑选这一轮封面</h2><p id="candidate-caption">使用你的文字与背景，点击一张即可套用。</p></div><button id="close-candidates" aria-label="关闭候选封面">关闭</button></div><div id="candidate-grid"></div><div class="candidate-footer"><span>选中后自动保存到随机记录</span><button id="regenerate-six">再生成一组 ↗</button></div></dialog>
 <dialog id="style-gallery"><div class="gallery-top"><div><h2>样式总览</h2><p>选择模板，修改文字并上传背景即可生成封面。</p></div><button id="close-gallery" aria-label="关闭样式总览">关闭</button></div><div id="gallery-grid"></div></dialog>
 <dialog id="reference-dialog"><div class="gallery-top"><div><h2>参考原图与当前封面</h2><p id="reference-caption"></p></div><button id="close-reference" aria-label="关闭原图对照">关闭</button></div><div class="comparison"><div id="reference-frames"></div><div class="current-result"><span>当前封面</span><canvas id="comparison-canvas"></canvas></div></div></dialog>
 <dialog id="cover-dialog"><div class="cover-dialog-top"><h2 id="large-cover-title">封面大图</h2><button id="close-cover" aria-label="关闭封面大图">关闭</button></div><div class="cover-large-stage"><canvas id="large-cover"></canvas></div></dialog>
